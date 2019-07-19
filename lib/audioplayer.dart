@@ -56,7 +56,7 @@ class AudioPlayer {
   Future<void> mute(bool muted) async => await _channel.invokeMethod('mute', muted);
 
   /// Seek to a specific position in the audio stream.
-  Future<void> seek(double seconds, {String url}) async => await _channel.invokeMethod('seek', seconds, {'url': url});
+  Future<void> seek(double seconds, {String url}) async => await _channel.invokeMethod('seek', {'seconds': seconds, 'url': url});
 
   /// Stream for subscribing to player state change events.
   Stream<AudioPlayerState> get onPlayerStateChanged => _playerStateController.stream;

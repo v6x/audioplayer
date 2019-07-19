@@ -55,7 +55,7 @@ public class AudioplayerPlugin implements MethodCallHandler {
         response.success(null);
         break;
       case "seek":
-        double position = call.arguments();
+        double position = call.arguments("seconds");
         String url = '';
         if(call.argument("url") != null)
           url = call.argument("url").toString();
