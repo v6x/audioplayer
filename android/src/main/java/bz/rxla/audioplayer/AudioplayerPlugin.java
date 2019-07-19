@@ -78,7 +78,8 @@ public class AudioplayerPlugin implements MethodCallHandler {
   }
 
   private void seek(double position) {
-    mediaPlayer.seekTo((int) (position * 1000));
+    if(mediaPlayer != null)
+      mediaPlayer.seekTo((int) (position * 1000));
   }
 
   private void stop() {
