@@ -78,8 +78,45 @@ public class AudioplayerPlugin implements MethodCallHandler {
   }
 
   private void seek(double position) {
-    if(mediaPlayer != null)
+    if (mediaPlayer == null) {
+      mediaPlayer = new MediaPlayer();
+      mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+
+      try {
+        mediaPlayer.setDataSource(url);
+      } catch (IOException e) {
+        Log.w(ID, "Invalid DataSource", e);
+        channel.invokeMethod("audio.onError", "Invalid Datasource");
+        return;
+      }
+
+      mediaPlayer.prepareAsync();
+
+      mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener(){
+        @Override
+        public void onPrepared(MediaPlayer mp) {
+          mediaPlayer.seekTo((int) (position * 1000));
+        }
+      });
+
+      mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener(){
+        @Override
+        public void onCompletion(MediaPlayer mp) {
+          //stop();
+          channel.invokeMethod("audio.onComplete", null);
+        }
+      });
+
+      mediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener(){
+        @Override
+        public boolean onError(MediaPlayer mp, int what, int extra) {
+          channel.invokeMethod("audio.onError", String.format("{\"what\":%d,\"extra\":%d}", what, extra));
+          return true;
+        }
+      });
+    } else {
       mediaPlayer.seekTo((int) (position * 1000));
+    }      
   }
 
   private void stop() {
