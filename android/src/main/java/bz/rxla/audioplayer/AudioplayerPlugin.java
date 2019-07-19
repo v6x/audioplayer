@@ -26,7 +26,7 @@ public class AudioplayerPlugin implements MethodCallHandler {
   private final AudioManager am;
   private final Handler handler = new Handler();
   private MediaPlayer mediaPlayer;
-
+  
   public static void registerWith(Registrar registrar) {
     final MethodChannel channel = new MethodChannel(registrar.messenger(), ID);
     channel.setMethodCallHandler(new AudioplayerPlugin(registrar, channel));
@@ -77,7 +77,7 @@ public class AudioplayerPlugin implements MethodCallHandler {
     }
   }
 
-  private void seek(double position) {
+  private void seek(double position, String url) {
     if (mediaPlayer == null) {
       mediaPlayer = new MediaPlayer();
       mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
