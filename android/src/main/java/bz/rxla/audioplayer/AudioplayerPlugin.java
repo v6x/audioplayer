@@ -81,7 +81,7 @@ public class AudioplayerPlugin implements MethodCallHandler {
     }
   }
 
-  private void seek(double position, String url) {
+  private void seek(final double position, String url) {
     if (mediaPlayer == null) {
       mediaPlayer = new MediaPlayer();
       mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
