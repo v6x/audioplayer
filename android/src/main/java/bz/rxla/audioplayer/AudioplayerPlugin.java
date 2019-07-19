@@ -106,7 +106,7 @@ public class AudioplayerPlugin implements MethodCallHandler {
       mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener(){
         @Override
         public void onCompletion(MediaPlayer mp) {
-          //stop();
+          pause();
           channel.invokeMethod("audio.onComplete", null);
         }
       });
@@ -167,7 +167,7 @@ public class AudioplayerPlugin implements MethodCallHandler {
       mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener(){
         @Override
         public void onCompletion(MediaPlayer mp) {
-          stop();
+          pause();
           channel.invokeMethod("audio.onComplete", null);
         }
       });
